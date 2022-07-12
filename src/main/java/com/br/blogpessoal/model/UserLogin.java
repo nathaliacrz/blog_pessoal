@@ -10,6 +10,10 @@ public class UserLogin {
 
 	private String foto;
 	
+	private String senha;
+	
+	private String token;
+	
 	public Long getId() {
 		return id;
 	}
@@ -25,10 +29,6 @@ public class UserLogin {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-
-	private String senha;
-
-	private String token;
 
 	public String getNome() {
 		return nome;
