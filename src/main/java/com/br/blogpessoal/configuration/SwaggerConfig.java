@@ -21,7 +21,7 @@ public class SwaggerConfig {
 				.info(new Info().title("Projeto Blog Pessoal").description("Projeto Blog Pessoal - Generation Brasil")
 						.version("v0.0.1")
 						.license(new License().name("Nathalia Cruz Santos").url("https://www.linkedin.com/in/nathalia-cruz-6b1561238/"))
-						.contact(new Contact().name("Git Hub").url("https://github.com/nathaliacrz/")
+						.contact(new Contact().name("Nathalia.").url("https://github.com/nathaliacrz/")
 								.email("nathalias161@gmail.com")))
 				.externalDocs(new ExternalDocumentation().description("Github")
 						.url("https://github.com/nathaliacrz/blog_pessoal"));
