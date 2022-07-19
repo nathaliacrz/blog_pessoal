@@ -4,9 +4,10 @@ import java.nio.charset.Charset;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.server.ResponseStatusException;
 import org.apache.commons.codec.binary.Base64;
 import com.br.blogpessoal.model.UserLogin;
 import com.br.blogpessoal.model.Usuario;
@@ -48,6 +49,24 @@ public class UsuarioService {
 		
 		return encoder.matches(senhaDigitada, senhaBanco);
 	}
+	
+	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
+
+		if (usuarioRepository.findById(usuario.getId()).isPresent()) {
+			Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
+
+			if (buscaUsuario.isPresent()) {				
+				if (buscaUsuario.get().getId() != usuario.getId())
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+			}
+			
+			usuario.setSenha(criptografarSenha(usuario.getSenha()));
+
+			return Optional.of(usuarioRepository.save(usuario));
+		} 
+			
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!", null);		
+	}	
 	
 	public Optional<UserLogin> logarUsuario(Optional<UserLogin> userLogin){
 		Optional<Usuario> usuario = usuarioRepository.findByUsuario(userLogin.get().getUsuario());
